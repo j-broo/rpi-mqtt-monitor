@@ -100,9 +100,10 @@ def check_sys_clock_speed():
 
 
 def check_uptime():
-    full_cmd = "awk '{print int($1/3600/24)}' /proc/uptime"
+    full_cmd = "awk '{print int(($1/3600)/24)\"d \" int($1/3600)\"h \" int(($1%3600)/60)\"m\"}' /proc/uptime"
     
-    return int(subprocess.Popen(full_cmd, shell=True, stdout=subprocess.PIPE).communicate()[0])
+    return subprocess.Popen(full_cmd, shell=True, stdout=subprocess.PIPE).communicate()[0]
+
 
 
 def check_model_name():
